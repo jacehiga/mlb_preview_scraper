@@ -26,14 +26,20 @@ def get_driver():
 def main():
     # Set up headless browser
     driver = get_driver()  
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 20)
 
     page_date = datetime.now().strftime("%Y-%m-%d")
     url = f"https://www.mlb.com/scores/{page_date}"
     driver.get(url)
 
     # Wait for all "Preview" buttons
-    wait.until(EC.presence_of_all_elements_located((By.XPATH, "//button[span[normalize-space()='Preview']]")))
+    try:
+        wait.until(EC.presence_of_all_elements_located((By.XPATH, "//button[span[normalize-space()='Preview']]")))
+    except TimeoutException:
+        print("⚠️ No preview buttons found — possibly incorrect date or slow load.")
+        print(driver.page_source[:1000])  # Print part of page source to debug
+        driver.quit()
+        return
 
     # Dismiss cookie overlay if present
     try:
