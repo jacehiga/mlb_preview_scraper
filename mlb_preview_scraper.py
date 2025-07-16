@@ -28,7 +28,7 @@ def main():
     driver = get_driver()  
     wait = WebDriverWait(driver, 10)
 
-    page_date = datetime.now().date()
+    page_date = datetime.now().strftime("%Y-%m-%d")
     url = f"https://www.mlb.com/scores/{page_date}"
     driver.get(url)
 
