@@ -11,6 +11,7 @@ import time
 from datetime import datetime
 import psycopg2
 
+
 def get_driver():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
@@ -18,10 +19,9 @@ def get_driver():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.binary_location = "/usr/bin/chromium"
 
-    return webdriver.Chrome(
-        executable_path="/usr/bin/chromedriver",
-        options=chrome_options
-    )
+    service = Service("/usr/bin/chromedriver")
+
+    return webdriver.Chrome(service=service, options=chrome_options)
     
 def main():
     # Set up headless browser
