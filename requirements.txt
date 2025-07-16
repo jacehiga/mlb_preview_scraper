@@ -4,3 +4,4 @@ MLB-StatsAPI==1.6.1
 pybaseball==2.2.4
 pandas>=1.5.0
 numpy>=1.21.0
+selenium
